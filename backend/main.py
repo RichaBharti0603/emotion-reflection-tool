@@ -1,33 +1,47 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import random
+from textblob import TextBlob
 
+# Create FastAPI instance
 app = FastAPI()
 
-# ✅ Explicit origins list
+# Allow frontend origins (localhost + vercel)
 origins = [
-    "https://emotion-reflection-tool.vercel.app",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://emotion-reflection-tool.vercel.app"
 ]
 
-# ✅ CORS middleware with full headers
+# Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=origins,              # restrict to frontend URLs
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 
-# ✅ Request body schema
-class TextInput(BaseModel):
+# Input schema
+class TextRequest(BaseModel):
     text: str
 
+# Emotion analysis route
 @app.post("/analyze")
-def analyze_text(input: TextInput):
-    emotions = ["Happy", "Sad", "Angry", "Excited", "Anxious"]
+def analyze_text(request: TextRequest):
+    blob = TextBlob(request.text)
+    polarity = blob.sentiment.polarity  # range: -1.0 (negative) to 1.0 (positive)
+
+    # Simple logic for mock emotion classification
+    if polarity > 0.3:
+        emotion = "Happy"
+    elif polarity < -0.3:
+        emotion = "Sad"
+    else:
+        emotion = "Neutral"
+
+    confidence = round(abs(polarity), 2)
+
     return {
-        "emotion": random.choice(emotions),
-        "confidence": round(random.uniform(0.7, 0.99), 2)
+        "emotion": emotion,
+        "confidence": confidence
     }
