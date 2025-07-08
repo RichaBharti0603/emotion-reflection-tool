@@ -1,0 +1,40 @@
+# ─── FRONTEND (Next.js / Node) ──────────────────────────────
+frontend/.next/
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+frontend/.env.development
+frontend/.turbo/
+frontend/dist/
+frontend/package-lock.json # Optional
+
+# ─── BACKEND (Python / FastAPI) ─────────────────────────────
+backend/__pycache__/
+backend/.env
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/venv/
+backend/env/
+backend/.vscode/
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+
+# ─── OS and IDE Specific ────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+*.swp
+*.swo
+
+# ─── Python Package Manager ────────────────────────────────
+pip-wheel-metadata/
+*.egg-info/
+
+# ─── Git Specific ──────────────────────────────────────────
+.git/
+
+node_modules
+package-lock.json 
