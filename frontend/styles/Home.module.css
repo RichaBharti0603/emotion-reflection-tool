@@ -91,3 +91,60 @@
   color: #718096;
   margin-top: 0.25rem;
 }
+.historyContainer {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: 1px solid #ccc;
+  width: 100%;
+}
+
+.historyTitle {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.historyList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.historyItem {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f3f4f6;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  align-items: center;
+}
+
+.confidence {
+  font-size: 0.9rem;
+  color: #666;
+}
+.subheading {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: #4a4a4a;
+}
+
+.moodSelector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.emoji {
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.emoji:hover {
+  transform: scale(1.2);
+}

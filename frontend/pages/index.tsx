@@ -23,6 +23,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -51,6 +52,14 @@ export default function Home() {
       <div className={styles.card}>
         <h1 className={styles.title}>🧠 Emotion Reflector</h1>
         <p className={styles.subtitle}>Reflect how you feel in words, we’ll tell you the vibe.</p>
+
+
+<h2 className={styles.subheading}>How are you feeling today?</h2>
+<div className={styles.moodSelector}>
+  <span onClick={() => setText("I feel happy 😊")} className={styles.emoji}>😊</span>
+  <span onClick={() => setText("I feel okay 😐")} className={styles.emoji}>😐</span>
+  <span onClick={() => setText("I feel sad 😢")} className={styles.emoji}>😢</span>
+</div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <textarea

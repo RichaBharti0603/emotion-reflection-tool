@@ -5,15 +5,10 @@ from textblob import TextBlob
 
 app = FastAPI()
 
-# Allow only the correct frontend origins
-origins = [
-    "http://localhost:3000",
-    "https://emotion-reflection-tool.vercel.app"
-]
-
+# ⚠️ TEMP FIX: Allow all origins during development
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # Allow ALL origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -25,7 +20,7 @@ class TextRequest(BaseModel):
 @app.post("/analyze")
 def analyze_text(request: TextRequest):
     blob = TextBlob(request.text)
-    polarity = blob.sentiment.polarity  # range -1.0 to 1.0
+    polarity = blob.sentiment.polarity
 
     if polarity > 0.3:
         emotion = "Happy"
