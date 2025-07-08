@@ -1,29 +1,28 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 import random
 
 app = FastAPI()
 
+# ✅ Add CORS settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://emotion-reflection-tool.vercel.app"],  # 👈 frontend domain
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-class Reflection(BaseModel):
+class TextInput(BaseModel):
     text: str
 
 @app.post("/analyze")
-def analyze(reflection: Reflection):
-    emotions = [
-        {"emotion": "Happy", "confidence": 0.92},
-        {"emotion": "Anxious", "confidence": 0.85},
-        {"emotion": "Excited", "confidence": 0.88},
-        {"emotion": "Sad", "confidence": 0.75},
-        {"emotion": "Confused", "confidence": 0.80},
-        {"emotion": "Hopeful", "confidence": 0.90},
-    ]
-    return random.choice(emotions)
+def analyze_text(input: TextInput):
+    # Fake response logic
+    emotions = ["Happy", "Sad", "Angry", "Excited", "Anxious"]
+    response = {
+        "emotion": random.choice(emotions),
+        "confidence": round(random.uniform(0.7, 0.99), 2)
+    }
+    return response
