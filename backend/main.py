@@ -5,31 +5,29 @@ import random
 
 app = FastAPI()
 
-# ✅ CORS settings — must include both deployed and localhost
+# ✅ Explicit origins list
 origins = [
-    "https://emotion-reflection-tool.vercel.app",  # Production frontend
-    "http://localhost:3000"                        # Local frontend
+    "https://emotion-reflection-tool.vercel.app",
+    "http://localhost:3000"
 ]
 
-# ✅ Add CORS middleware with all necessary flags
+# ✅ CORS middleware with full headers
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],      # Allow all HTTP methods
-    allow_headers=["*"],      # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"]
 )
 
-# ✅ Request schema
+# ✅ Request body schema
 class TextInput(BaseModel):
     text: str
 
-# ✅ API endpoint
 @app.post("/analyze")
 def analyze_text(input: TextInput):
     emotions = ["Happy", "Sad", "Angry", "Excited", "Anxious"]
-    response = {
+    return {
         "emotion": random.choice(emotions),
         "confidence": round(random.uniform(0.7, 0.99), 2)
     }
-    return response
